@@ -4,6 +4,7 @@
 - name: Initialize k8s cluster
   command: kubeadm init
   register: kubeadm_init_output
+  become: true
 
 - name: Create file with output
   copy:
@@ -25,7 +26,8 @@
   delegate_to: localhost
   become: false
 
-- name: Install pod network
-  command: kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+- name: Aplicar calico.yaml
+  command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/tigera-operator.yaml
   environment:
     KUBECONFIG: /etc/kubernetes/admin.conf
+  become: true

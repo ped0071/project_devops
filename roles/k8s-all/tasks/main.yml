@@ -23,3 +23,13 @@
   loop:
     - net.bridge.bridge-nf-call-iptables
     - net.bridge.bridge-nf-call-ip6tables
+
+- name: Alterar opção disabled_plugins para enabled_plugins
+  ansible.builtin.lineinfile:
+    path: /etc/containerd/config.toml
+    regexp: '^disabled_plugins =.*$'
+    line: 'enabled_plugins = ["cri"]'
+
+- name: Restartando containerd
+  command: systemctl restart containerd.service
+  become: true

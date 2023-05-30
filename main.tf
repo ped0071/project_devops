@@ -34,7 +34,7 @@ resource "aws_security_group" "k8s-sg" {
 
 resource "aws_instance" "k8s-worker" {
   ami           = "ami-085925f297f89fce1"
-  instance_type = "t3.medium"
+  instance_type = "t"
   key_name      = "k8s-key"
   count         = 2
   tags = {
