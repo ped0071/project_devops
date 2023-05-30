@@ -1,0 +1,23 @@
+---
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+profile: default
+
+filters:
+  instance-state-name: running
+
+keyed_groups:
+  - prefix: tag
+    key: tags
+
+compose:
+  ansible_host: public_ip_address
+
+host_vars:
+  tag_Name_k8s:
+    ansible_host: public_ip_address
+  tag_type_worker:
+    ansible_host: public_ip_address
+  tag_type_master:
+    ansible_host: public_ip_address
